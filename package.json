@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/fumixer/Team-Profile-Generator#readme",
   "dependencies": {
-    "jest": "^28.1.2"
+    "fs": "^0.0.1-security",
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.2",
+    "path": "^0.12.7"
   }
 }

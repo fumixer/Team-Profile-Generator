@@ -1,12 +1,15 @@
 // TODO: Include packages needed for this application
-let inquirer = require('inquirer');
-let fs = require("fs");
+const inquirer = require('inquirer');
+const fs = require('fs');
+const path = require('path');
 
 //class and constructors
-const Employee = require(`./lib/Employee`)
 const Engineer = require(`./lib/Engineer`)
 const Intern = require(`./lib/Intern`)
 const Manager = require(`./lib/Manager`)
+
+//import template
+const template = require(`./src/template`)
 
 const allEmployees = []
 
@@ -40,12 +43,13 @@ function addManager() {
             message: `What is manager's officeNumber?`
         },
     ]).then(answers => {
-        this.manager = new this.manager(answers.managerName, answers.managerID, answers.managerEmail, answers.officeNumber);
+        let manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.officeNumber);
         //
+        allEmployees.push(manager);
+        menu()
     });
 };
 
-//after addManager, ask what they want next
  //ask what do they want to do next?
     //Add engineer?
     //add intern?
@@ -59,13 +63,17 @@ function menu() {
             choices: [`Engineer`, `Intern`, `Done adding employees`]
         }
     ]).then(selectedMenu=>{
-    switch
-    }
-
-    
-
-    )
-   
+        switch (selectedMenu.menu) {
+            case "Engineer":
+                addEngineer();
+                break;
+            case "Intern":
+                addIntern();
+                break;
+            default:
+                buildHTML();
+        }
+    });
 }
 
 //Create a function to add Engineer
@@ -92,7 +100,11 @@ function addEngineer(){
             message: `What is engineer's github ?`
         },
     ]).then(answers => {
-
+        let engineer= new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.github);
+    
+        allEmployees.push(engineer);
+        menu()
+    })
 }
 
 //Create a function to add Intern
@@ -119,11 +131,26 @@ function addIntern() {
             message: `What is intern's school ?`
         },
     ]).then(answers => {
-
+        //Class should have capital 
+        let intern= new Intern(answers.internName, answers.internID, answers.internEmail, answers.school);
+    
+        allEmployees.push(intern);
+        menu()
+    })
 }
 
-//Create a function to write HTML file
-function buildHTML(fileName, data) {
-    return fs. writeFileSync(path.join(process.cwd(), fileName), data);
+const DIST_DIR = path.resolve(__dirname, 'dist');
+const distPath = path.join(DIST_DIR, `index.html`)
+
+
+//Create a function to wr   ite HTML file
+function buildHTML() {
+    // Does the dist directory exist? If not, make one.
+    if(!fs.existSync(DIST_DIR)){
+        fs.mkdirSync(DIST_DIR)
+    }
+    console.log("Generating Team Profile.... ");
+    fs. writeFileSync(distPath, template(allEmployees), `utf-8`);
 }
-v
+
+addManager();
