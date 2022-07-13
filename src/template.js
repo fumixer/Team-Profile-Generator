@@ -10,25 +10,11 @@ const generateTeam = (allEmployees) => {
                 <p>Manager</p>
             </div>
             <div class="card-body">
-                <p>ID: ${manager.getId()}</p>
+           
                 <p>Email: ${manager.getEmail()}</p>
                 <p>Office Number: ${manager.getOfficeNumber()}</p>
             </div>
         </div>`
-    }
-
-    const generateIntern = (intern) => {
-        return ` <div class="card">
-        <div class="card-header">
-            <h2 class="employee-type">${intern.getName()}</h2>
-            <p>Intern</p>
-        </div>
-        <div class="card-body">
-            <p>ID: ${intern.getId()}</p>
-            <p>Email: ${intern.getEmail()}</p>
-            <p>School: ${intern.getSchool()}</p>
-        </div>
-    </div>`
     }
 
     const generateEngineer = (engineer) => {
@@ -38,12 +24,28 @@ const generateTeam = (allEmployees) => {
             <p>Engineer</p>
         </div>
         <div class="card-body">
-            <p>ID: ${engineer.getId()}</p>
-            <p>Email: ${engineer.getEmal()}</p>
+           
+            <p>Email: ${engineer.getEmail()}</p>
             <p>Github: ${engineer.getGithub()}</p>
         </div>
     </div>`
     }
+
+    const generateIntern = (intern) => {
+        return ` <div class="card">
+        <div class="card-header">
+            <h2 class="employee-type">${intern.getName()}</h2>
+            <p>Intern</p>   
+        </div>
+        <div class="card-body">
+          
+            <p>Email: ${intern.getEmail()}</p>
+            <p>School: ${intern.getSchool()}</p>
+        </div>
+    </div>`
+    }
+
+
 
 
     //save HTML to array
@@ -64,6 +66,7 @@ const teamHTML = []
     teamHTML.push(allEmployees
         .filter(employee => employee.getRole() === `Engineer`)
         .map(engineer => generateEngineer(engineer) ) 
+         //Engineer can be multiple people
         .join('')
     )
 
@@ -81,13 +84,14 @@ module.exports = allEmployees => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <!-- Add boostrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
         <!-- add custom css -->
         <link rel="stylesheet" href="style.css">
     </head>
     
     <body>
         <header>
-            <h1>My team</h1>
+            <h1 class="col-12 jumbotron text-white mb-3">My team</h1>
         </header>
     
         <main class="container">

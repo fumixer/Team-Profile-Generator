@@ -11,11 +11,8 @@ const Manager = require(`./lib/Manager`)
 //import template
 const template = require(`./src/template`)
 
+// Create empty arrays for team　as place holders
 const allEmployees = []
-
-// let name = "steph"
-// let id = 50
-// let email = 'steph@gmail.com'
 
 // const employee = new Employee(name, id, email)
 // allEmployees.push(employee)
@@ -29,21 +26,21 @@ function addManager() {
         },
         {
             type: `input`,
-            name: `managerID`,
+            name: `managerId`,
             message: `What is manager's ID?`
         },
         {
             type: `input`,
             name: `managerEmail`,
-            message: `What is manager's email?`
+            message: `What is manager's Email?`
         },
         {
             type: `input`,
             name: `officeNumber`,
-            message: `What is manager's officeNumber?`
+            message: `What is manager's office Number?`
         },
     ]).then(answers => {
-        let manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.officeNumber);
+        let manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.officeNumber);
         //
         allEmployees.push(manager);
         menu()
@@ -86,7 +83,7 @@ function addEngineer(){
         },
         {
             type: `input`,
-            name: `engineerID`,
+            name: `engineerId`,
             message: `What is engineer's ID?`
         },
         {
@@ -100,7 +97,7 @@ function addEngineer(){
             message: `What is engineer's github ?`
         },
     ]).then(answers => {
-        let engineer= new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.github);
+        let engineer= new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.github);
     
         allEmployees.push(engineer);
         menu()
@@ -117,7 +114,7 @@ function addIntern() {
         },
         {
             type: `input`,
-            name: `internID`,
+            name: `internId`,
             message: `What is intern's ID?`
         },
         {
@@ -132,7 +129,7 @@ function addIntern() {
         },
     ]).then(answers => {
         //Class should have capital 
-        let intern= new Intern(answers.internName, answers.internID, answers.internEmail, answers.school);
+        let intern= new Intern(answers.internName, answers.internId, answers.internEmail, answers.school);
     
         allEmployees.push(intern);
         menu()
@@ -146,7 +143,7 @@ const distPath = path.join(DIST_DIR, `index.html`)
 //Create a function to wr   ite HTML file
 function buildHTML() {
     // Does the dist directory exist? If not, make one.
-    if(!fs.existSync(DIST_DIR)){
+    if(!fs.existsSync(DIST_DIR)){
         fs.mkdirSync(DIST_DIR)
     }
     console.log("Generating Team Profile.... ");
